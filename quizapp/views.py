@@ -159,11 +159,9 @@ def show_subject(request, subject_slug):
     quizform = None
     subject = Subject.objects.get(slug=subject_slug)
     quizzes = Quiz.objects.filter(subject=subject).order_by("-created_time")
-    if user.is_student:
-        subjects = user.student.subjects.all()
-
+    subjects = getSubjects(user)
+    
     if user.is_teacher:
-        subjects = user.teacher.subjects.all()
         quizform = QuizForm()
 
     if subject not in subjects:
