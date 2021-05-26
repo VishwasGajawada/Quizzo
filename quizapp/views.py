@@ -130,14 +130,13 @@ def create_subject(request):
 @login_required(login_url="login")
 def add_subject(request):
     user = request.user
+    subjects = getSubjects(user)
     if user.is_student:
         profile = user.student
         form = StudentSubjectUpdateForm(instance=profile)
-        subjects = user.student.subjects.all()
     else:
         profile = user.teacher
         form = TeacherSubjectUpdateForm(instance=profile)
-        subjects = user.teacher.subjects.all()
 
     if request.method == "POST":
         if user.is_student:
