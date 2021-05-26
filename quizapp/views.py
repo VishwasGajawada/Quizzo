@@ -174,7 +174,8 @@ def show_subject(request, subject_slug):
         if quizform.is_valid():
             question_description = request.POST.get("description")
             # print(question_description)
-            if "question_file" not in request.FILES and question_description is None:
+            if "question_file" not in request.FILES and not len(question_description):
+                print("mistake")
                 messages.error(request, "Atlest provide either description or file")
                 context = {
                     "subject": subject,
